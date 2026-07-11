@@ -27,7 +27,7 @@
       position: relative;
     }
 
-    /* Лёгкий шум */
+    /* Лёгкий шум поверх всего */
     body::after {
       content: "";
       position: fixed;
@@ -157,9 +157,9 @@
     }
     .btn:active { transform: translateY(0); }
 
-    /* Панель с историей */
-    .history-panel {
-      display: none; /* Скрыта по умолчанию */
+    /* Панель контента (история, регламент и т.д.) */
+    .content-panel {
+      display: none;
       background: #0e1014;
       border: 1px solid #222;
       padding: 2.5rem;
@@ -170,7 +170,7 @@
       animation: fadeIn 0.6s ease-out;
     }
 
-    .history-panel.visible {
+    .content-panel.active {
       display: block;
     }
 
@@ -179,7 +179,7 @@
       to { opacity: 1; transform: translateY(0); }
     }
 
-    .history-title {
+    .panel-title {
       font-family: var(--hud);
       color: var(--accent);
       letter-spacing: 2px;
@@ -189,6 +189,7 @@
       padding-left: 12px;
     }
 
+    /* Эффект печатной машинки для абзацев */
     .typed-text {
       color: #ddd;
       line-height: 1.6;
@@ -278,10 +279,10 @@
   <header>
     <div class="logo">СОБ | Штаб отряда</div>
     <nav>
-      <a onclick="showSection('about')">О отряде</a>
-      <a onclick="showSection('rules')">Регламент</a>
-      <a onclick="showSection('roles')">Роли и звания</a>
-      <a onclick="showSection('invite')">Вступить в отряд</a>
+      <a onclick="showSection('about')" id="nav-about">О отряде</a>
+      <a onclick="showSection('rules')" id="nav-rules">Регламент</a>
+      <a onclick="showSection('roles')" id="nav-roles">Роли и звания</a>
+      <a onclick="showSection('invite')" id="nav-invite">Вступить в отряд</a>
     </nav>
   </header>
 
@@ -292,9 +293,9 @@
       <a href="https://discord.gg/KMEqzV8nyT" class="btn">Подать заявку</a>
     </section>
 
-    <!-- Панель истории -->
-    <section id="about-panel" class="history-panel">
-      <div class="history-title">🛠️ СОЮЗ ОБЪЕДИНЕННЫХ БОЙЦОВ (СОБ)</div>
+    <!-- Панель: О отряде -->
+    <section id="panel-about" class="content-panel">
+      <div class="panel-title">🛠️ СОЮЗ ОБЪЕДИНЕННЫХ БОЙЦОВ (СОБ)</div>
       
       <p class="typed-text" style="--delay: 0s;">
         <strong>Как всё начиналось</strong><br>
@@ -332,19 +333,95 @@
       </p>
     </section>
 
-    <section id="rules-panel" class="history-panel">
-      <div class="history-title">📖 Регламент СОБ</div>
-      <p style="color: #aaa;">Регламент загружается… (тут можно будет вставить свои правила)</p>
+    <!-- Панель: Регламент -->
+    <section id="panel-rules" class="content-panel">
+      <div class="panel-title">📖 Регламент СОБ</div>
+      <p style="color: #aaa;">
+        <strong>Основные пункты устава:</strong><br><br>
+        1. Никаких открытых каналов связи — только защищённые частоты.<br>
+        2. Одиночные действия запрещены — только в составе группы.<br>
+        3. Запрещено мародерство и насилие по отношению к мирным.<br>
+        4. При обнаружении утечки информации — немедленный доклад командиру.<br>
+        5. Все отчёты подаются в зашифрованном виде через закрытый канал.
+      </p>
     </section>
 
-    <section id="roles-panel" class="history-panel">
-      <div class="history-title">🎖️ Роли и звания СОБ</div>
-      <p style="color: #aaa;">Список званий и обязанностей загружается…</p>
+    <!-- Панель: Роли и звания -->
+    <section id="panel-roles" class="content-panel">
+      <div class="panel-title">🎖️ Роли и звания СОБ</div>
+      <p style="color: #aaa;">
+        <strong>Командование:</strong><br>
+        • Командир отряда (Якут) — общее руководство, стратегия.<br>
+        • Зам. командира — координация групп, контроль выполнения задач.<br><br>
+        <strong>Боевые группы:</strong><br>
+        • Штурмовики — прорыв, зачистка, работа в плотной застройке.<br>
+        • Снайперы/наблюдатели — прикрытие, разведка, контроль периметра.<br>
+        • Сапёры — разминирование, установка ловушек, работа с взрывчаткой.<br><br>
+        <strong>Тыловое обеспечение:</strong><br>
+        • Медики — эвакуация, первая помощь, полевые операции.<br>
+        • Техники — ремонт снаряжения, настройка связи, обслуживание базы.
+      </p>
     </section>
 
-    <section id="invite-panel" class="history-panel">
-      <div class="history-title">📩 Вступить в отряд</div>
-      <p style="color: #aaa;">Форма подачи заявки загружается…<br>Ссылка на Discord: <a href="https://discord.gg/KMEqzV8nyT" style="color:var(--accent); text-decoration:underline;">discord.gg/KMEqzV8nyT</a></p>
+    <!-- Панель: Вступить в отряд -->
+    <section id="panel-invite" class="content-panel">
+      <div class="panel-title">📩 Вступить в отряд</div>
+      <p style="color: #aaa;">
+        Чтобы стать частью СОБ, необходимо пройти проверку на лояльность и базовые нормативы. Мы ищем не просто стрелков, а людей, которые понимают, что такое дисциплина и работа в команде.<br><br>
+        <strong>Что нужно сделать:</strong><br>
+        1. Перейти по ссылке ниже.<br>
+        2. Заполнить анкету в канале #заявки.<br>
+        3. Дождаться ответа от куратора.<br><br>
+        <strong>Ссылка на Discord:</strong> <a href="https://discord.gg/KMEqzV8nyT" style="color:var(--accent); text-decoration:underline;">discord.gg/KMEqzV8nyT</a>
+      </p>
     </section>
+  </main>
 
-    <
+  <footer>
+    &copy; 2026 СОБ. Внутренняя панель доступа. Конфиденциально. Только для участников проекта.
+  </footer>
+
+  <script>
+    function showSection(section) {
+      // Скрываем все панели
+      document.querySelectorAll('.content-panel').forEach(panel => {
+        panel.classList.remove('active');
+      });
+      // Убираем активный класс у всех кнопок
+      document.querySelectorAll('nav a').forEach(link => {
+        link.classList.remove('active');
+      });
+
+      // Показываем нужную панель
+      const targetPanel = document.getElementById('panel-' + section);
+      if (targetPanel) {
+        targetPanel.classList.add('active');
+      }
+
+      // Подсвечиваем активную кнопку
+      const targetLink = document.getElementById('nav-' + section);
+      if (targetLink) {
+        targetLink.classList.add('active');
+      }
+
+      // Запускаем эффект появления текста (печатная машинка)
+      triggerTypingEffect();
+    }
+
+    function triggerTypingEffect() {
+      const texts = document.querySelectorAll('.typed-text');
+      texts.forEach((text, index) => {
+        const delay = parseFloat(window.getComputedStyle(text).getPropertyValue('--delay')) || 0;
+        setTimeout(() => {
+          text.classList.add('show');
+        }, delay * 1000);
+      });
+    }
+
+    // При загрузке страницы сразу показываем «О отряде»
+    window.onload = function() {
+      showSection('about');
+    };
+  </script>
+</body>
+</html>
