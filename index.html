@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Твой Сервер | Discord</title>
+  <style>
+    :root {
+      --bg: #202225;
+      --card: #2f3136;
+      --text: #dcddde;
+      --accent: #5865F2;
+      --btn: #43b581;
+    }
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      background-color: var(--bg);
+      color: var(--text);
+      line-height: 1.5;
+    }
+    header {
+      padding: 1rem 1.5rem;
+      border-bottom: 1px solid #393c43;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .logo {
+      font-weight: bold;
+      font-size: 1.2rem;
+    }
+    nav a {
+      color: var(--text);
+      text-decoration: none;
+      margin-left: 1.2rem;
+      transition: opacity 0.2s;
+    }
+    nav a:hover { opacity: 0.7; }
+    .hero {
+      max-width: 800px;
+      margin: 3rem auto;
+      padding: 2rem;
+      background: var(--card);
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+      text-align: center;
+    }
+    h1 { margin: 0 0 0.5rem; }
+    p { color: #b9bbbe; }
+    .btn {
+      display: inline-block;
+      margin-top: 1rem;
+      padding: 0.8rem 1.6rem;
+      background: var(--btn);
+      color: white;
+      text-decoration: none;
+      border-radius: 4px;
+      font-weight: 600;
+    }
+    .btn:hover { filter: brightness(1.1); }
+    .features {
+      max-width: 800px;
+      margin: 2rem auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1rem;
+    }
+    .feature-card {
+      background: var(--card);
+      padding: 1.2rem;
+      border-radius: 6px;
+    }
+    @media (max-width: 600px) {
+      header { flex-direction: column; gap: 0.8rem; }
+      nav a { margin: 0 0.6rem; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="logo">🎮 Твой Сервер</div>
+    <nav>
+      <a href="#about">О сервере</a>
+      <a href="#rules">Правила</a>
+      <a href="#roles">Роли</a>
+      <a href="#invite">Пригласить</a>
+    </nav>
+  </header>
+
+  <main>
+    <section id="hero" class="hero">
+      <h1>Добро пожаловать на сервер</h1>
+      <p>Лучшее место для общения, RP и веселья.</p>
+      <a href="ВСТАВЬ_СЮДА_ССЫЛКУ_НА_ИНВАЙТ" class="btn">Присоединиться к серверу</a>
+    </section>
+
+    <section class="features">
+      <div class="feature-card">
+        <h3>🗣 Общение</h3>
+        <p>Много каналов для разных тем и голосовые комнаты.</p>
+      </div>
+      <div class="feature-card">
+        <h3>🎭 RP-проект</h3>
+        <p>Ролевая игра с проработанным лором и фракциями.</p>
+      </div>
+      <div class="feature-card">
+        <h3>🤝 Сообщество</h3>
+        <p>Дружелюбные участники и регулярные ивенты.</p>
+      </div>
+    </section>
+  </main>
+</body>
+</html>
