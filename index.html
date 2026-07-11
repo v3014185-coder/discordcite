@@ -27,7 +27,7 @@
       position: relative;
     }
 
-    /* Очень лёгкий шум, почти незаметный */
+    /* Лёгкий шум */
     body::after {
       content: "";
       position: fixed;
@@ -59,7 +59,6 @@
       text-transform: uppercase;
       color: white;
       font-family: var(--hud);
-      /* Аккуратная красная подсветка, без мерцания */
       text-shadow: 0 0 8px rgba(255, 59, 59, 0.4);
     }
 
@@ -80,9 +79,10 @@
       position: relative;
       background: rgba(255,255,255,0.03);
       letter-spacing: 1px;
+      cursor: pointer;
     }
 
-    nav a:hover {
+    nav a:hover, nav a.active {
       color: white;
       border-color: var(--accent);
       background: rgba(255, 59, 59, 0.1);
@@ -102,7 +102,6 @@
       overflow: hidden;
     }
 
-    /* Плавная линия-индикатор сверху */
     .hero::before {
       content: '';
       position: absolute;
@@ -125,8 +124,6 @@
       letter-spacing: 4px;
       line-height: 1.1;
       color: white;
-      /* Никакого глитча — только чистая типографика */
-      position: relative;
     }
 
     .hero p {
@@ -159,6 +156,52 @@
       box-shadow: 0 10px 25px rgba(255, 59, 59, 0.55);
     }
     .btn:active { transform: translateY(0); }
+
+    /* Панель с историей */
+    .history-panel {
+      display: none; /* Скрыта по умолчанию */
+      background: #0e1014;
+      border: 1px solid #222;
+      padding: 2.5rem;
+      border-radius: 6px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.5);
+      margin-top: 2rem;
+      position: relative;
+      animation: fadeIn 0.6s ease-out;
+    }
+
+    .history-panel.visible {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .history-title {
+      font-family: var(--hud);
+      color: var(--accent);
+      letter-spacing: 2px;
+      font-size: 1.3rem;
+      margin-bottom: 1.5rem;
+      border-left: 3px solid var(--accent);
+      padding-left: 12px;
+    }
+
+    .typed-text {
+      color: #ddd;
+      line-height: 1.6;
+      font-size: 0.95rem;
+      opacity: 0;
+      transform: translateY(5px);
+      transition: opacity 0.4s ease, transform 0.4s ease;
+    }
+
+    .typed-text.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
 
     .features {
       display: grid;
@@ -229,22 +272,16 @@
       height: 2px;
       background: linear-gradient(90deg, transparent, var(--accent), transparent);
     }
-
-    @media (max-width: 640px) {
-      header { flex-direction: column; gap: 1rem; }
-      .hero h1 { font-size: 1.8rem; letter-spacing: 3px; }
-      nav a { padding: 0.5rem 0.8rem; font-size: 0.75rem; }
-    }
   </style>
 </head>
 <body>
   <header>
     <div class="logo">СОБ | Штаб отряда</div>
     <nav>
-      <a href="#about">О отряде</a>
-      <a href="#rules">Регламент</a>
-      <a href="#roles">Роли и звания</a>
-      <a href="#invite">Вступить в отряд</a>
+      <a onclick="showSection('about')">О отряде</a>
+      <a onclick="showSection('rules')">Регламент</a>
+      <a onclick="showSection('roles')">Роли и звания</a>
+      <a onclick="showSection('invite')">Вступить в отряд</a>
     </nav>
   </header>
 
@@ -255,24 +292,59 @@
       <a href="https://discord.gg/KMEqzV8nyT" class="btn">Подать заявку</a>
     </section>
 
-    <section id="features" class="features">
-      <div class="feature-card">
-        <h3>Оперативные группы</h3>
-        <p>Штурм, зачистка, сопровождение важных лиц. Работа только в составе группы, одиночные действия запрещены.</p>
-      </div>
-      <div class="feature-card">
-        <h3>Штаб и связь</h3>
-        <p>Координация, отчёты, шифрованная связь. Никаких открытых каналов, только защищённые частоты.</p>
-      </div>
-      <div class="feature-card">
-        <h3>Обучение и допуск</h3>
-        <p>Инструктаж, нормативы, проверка на лояльность. Допуск только после аттестации и личного одобрения командира.</p>
-      </div>
-    </section>
-  </main>
+    <!-- Панель истории -->
+    <section id="about-panel" class="history-panel">
+      <div class="history-title">🛠️ СОЮЗ ОБЪЕДИНЕННЫХ БОЙЦОВ (СОБ)</div>
+      
+      <p class="typed-text" style="--delay: 0s;">
+        <strong>Как всё начиналось</strong><br>
+        В подземельях и секторах за чертой города всегда творился полный бардак. Пока патрули держали людей в страхе за стенами, внизу беженцы и мелкие банды просто резали друг друга за банку тушенки или пачку патронов. Никакого общего фронта не было — все воевали со всеми, процветало мародерство, а обычные гражданские, сбежавшие от облав, гибли в первые же дни.
+      </p>
 
-  <footer>
-    &copy; 2026 СОБ. Внутренняя панель доступа. Конфиденциально. Только для участников проекта.
-  </footer>
-</body>
-</html>
+      <p class="typed-text" style="--delay: 0.4s;">
+        Айрал Пилотов, которого в каналах все знали по позывному <strong>«Якут»</strong>, понял, что с таким подходом выжить не получится. Он начал собирать вокруг себя нормальных, соображающих парней: рукастых техников, толковых медиков и тех, кто умел держать в руках автомат, но не хотел опускаться до банального разбоя. Так и появился <strong>Союз Объединенных Бойцов (СОБ)</strong>. Главной задачей отряда стало наведение порядка и защита тех, кто сам постоять за себя не может.
+      </p>
+
+      <p class="typed-text" style="--delay: 0.8s;">
+        <strong>Первая база и разгром</strong><br>
+        Поначалу СОБ закрепился на старой базе нейтралов. Парни быстро навели там шороху: выбили бандитов из ближайших тоннелей, поставили свои посты и ввели жесткий запрет на стрельбу по своим. Техники восстановили свет и укрепили проходы, медики начали лечить раненых, а патрули делились едой и медикаментами с прибывающими беженцами. 
+      </p>
+
+      <p class="typed-text" style="--delay: 1.2s;">
+        Но долго это не продлилось. Во время вылазки на ракетный комплекс отряд угодил в засаду и потерпел серьезное поражение. Потеряв людей и снаряжение, Якут понял, что оставаться на старом месте нельзя — это подставит под удар мирных, да и позиции сдали. Было решено уходить глубже в каналы, чтобы перегруппироваться.
+      </p>
+
+      <p class="typed-text" style="--delay: 1.6s;">
+        <strong>Руины бара «Восток» и потеря Аванпоста</strong><br>
+        Новым домом для СОБа стали полуразрушенные помещения старого бара <strong>«Восток»</strong>. Место глухое, скрытое от чужих глаз, но крепкое. Парни забаррикадировали лишние входы и наладили быт.
+      </p>
+
+      <p class="typed-text" style="--delay: 2.0s;">
+        Однако сидеть только под землей было нельзя. Прямо на окраине Мертвой Зоны, в руинах заброшенных технических помещений, общими усилиями был воздвигнут укрепленный <strong>Нейтральный Аванпост</strong>. Всю территорию обнесли прочным забором с кучей огневых точек, а внутри обустроили медпункт и бар. Это место защищали бойцы из <strong>ВС</strong>, <strong>японцы</strong>, <strong>ХЕКС</strong> и <strong>нейтралы</strong>, превратив его в надежное укрытие для всех сопротивленцев.
+      </p>
+
+      <p class="typed-text" style="--delay: 2.4s;">
+        Но такая идея понравилась далеко не всем. Появление новой укрепленной организации и постоянная активность на аванпосте сильно мешали <strong>Костоправам</strong>, у которых через эти сектора проходили свои важные торговые пути. Они были крайне недовольны активностью Альянса, которую привлек аванпост. В итоге Костоправы просто пришли и прогнали всех из аванпоста.
+      </p>
+
+      <p class="typed-text" style="--delay: 2.8s;">
+        Оставив потерянный блокпост позади, СОБ вернулся в бар «Восток». Задачи отряда не изменились — парни всё так же держат порядок в подконтрольных секторах, пресекают бандитизм и помогают выжившим под землей. Но теперь СОБ активно набирает свежие силы, чтобы окрепнуть, вернуть утраченное влияние и заставить Костоправов считаться с собой.
+      </p>
+    </section>
+
+    <section id="rules-panel" class="history-panel">
+      <div class="history-title">📖 Регламент СОБ</div>
+      <p style="color: #aaa;">Регламент загружается… (тут можно будет вставить свои правила)</p>
+    </section>
+
+    <section id="roles-panel" class="history-panel">
+      <div class="history-title">🎖️ Роли и звания СОБ</div>
+      <p style="color: #aaa;">Список званий и обязанностей загружается…</p>
+    </section>
+
+    <section id="invite-panel" class="history-panel">
+      <div class="history-title">📩 Вступить в отряд</div>
+      <p style="color: #aaa;">Форма подачи заявки загружается…<br>Ссылка на Discord: <a href="https://discord.gg/KMEqzV8nyT" style="color:var(--accent); text-decoration:underline;">discord.gg/KMEqzV8nyT</a></p>
+    </section>
+
+    <
